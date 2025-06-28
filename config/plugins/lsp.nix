@@ -14,7 +14,10 @@
     lua_ls.enable = true;
     marksman.enable = true;
     nixd.enable = true;
-    texlab.enable = lib.mkIf (profile == "full");
+    texlab.enable =
+      if (profile == "full")
+      then true
+      else false;
     yamlls.enable = true;
   };
 

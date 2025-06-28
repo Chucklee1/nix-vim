@@ -23,7 +23,10 @@
 in {
   plugins = {
     vimtex = {
-      enable = lib.mkIf (profile == "full");
+      enable =
+        if (profile == "full")
+        then true
+        else false;
       texlivePackage = pkgs.texlive.combined.scheme-full;
       zathuraPackage = pkgs.zathura;
       settings = {
