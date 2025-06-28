@@ -38,8 +38,14 @@
         };
       in {
         formatter = pkgs.alejandra;
-        checks.default = nixvimLib.check.mkTestDerivationFromNixvimModule (nixvimModule "core");
-        packages.default = nixvim'.makeNixvimWithModule (nixvimModule "core");
+        checks = {
+          default = nixvimLib.check.mkTestDerivationFromNixvimModule (nixvimModule "core");
+          full = nixvimLib.check.mkTestDerivationFromNixvimModule (nixvimModule "full");
+        };
+        packages = {
+          default = nixvim'.makeNixvimWithModule (nixvimModule "core");
+          full = nixvim'.makeNixvimWithModule (nixvimModule "full");
+        };
       };
     };
 }
