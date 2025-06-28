@@ -1,14 +1,18 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  profile,
+  ...
+}: {
   plugins = {
     treesitter = {
       enable = true;
       settings = {
         highlight = {
           enable = true;
-          disable = [
-            "latex"
-            "markdown"
-          ];
+          disable =
+            if profile == "full"
+            then ["latex"]
+            else [];
         };
         incremental_selection.enable = true;
       };

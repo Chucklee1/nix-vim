@@ -1,4 +1,9 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  profile,
+  ...
+}: let
   latexmkrc =
     #sh
     ''
@@ -18,7 +23,7 @@
 in {
   plugins = {
     vimtex = {
-      enable = true;
+      enable = lib.mkIf (profile == "full");
       texlivePackage = pkgs.texlive.combined.scheme-full;
       zathuraPackage = pkgs.zathura;
       settings = {

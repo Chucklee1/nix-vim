@@ -30,15 +30,16 @@
         extlib = import "${self}/libs.nix" {inherit (inputs) nixpkgs;};
 
         # ---- module definition ----
-        nixvimModule = type: {
+        nixvimModule = profile: {
+          # profile choices: core, full
           inherit system;
           module.imports = extlib.simpleMerge "${self}/config";
-          extraSpecialArgs = {inherit inputs extlib type;};
+          extraSpecialArgs = {inherit inputs extlib profile;};
         };
       in {
         formatter = pkgs.alejandra;
-        checks.default = nixvimLib.check.mkTestDerivationFromNixvimModule (nixvimModule "default");
-        packages.default = nixvim'.makeNixvimWithModule (nixvimModule "default");
+        checks.default = nixvimLib.check.mkTestDerivationFromNixvimModule (nixvimModule "core");
+        packages.default = nixvim'.makeNixvimWithModule (nixvimModule "core");
       };
     };
 }

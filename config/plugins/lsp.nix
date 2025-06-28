@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  profile,
+  ...
+}: {
   # ---- LSP ----
   plugins.lsp.enable = true;
   lsp.servers = {
@@ -9,7 +14,7 @@
     lua_ls.enable = true;
     marksman.enable = true;
     nixd.enable = true;
-    texlab.enable = true;
+    texlab.enable = lib.mkIf (profile == "full");
     yamlls.enable = true;
   };
 

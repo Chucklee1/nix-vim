@@ -7,10 +7,7 @@
 
 - Then add it as a package in your configuration as `inputs.nixvim.packages.${pkgs.system}.default`
 
-### TODO
+## profiles
 
-- [ ] Profile system with profiles:
-  - core: Everything except tex and completion
-  - cmp: Core with cmp
-  - full: Everything
-- [ ] Have flake default to core
+- Core: No LaTex integration or pdf viewer
+- Full: Everything including stuff left out in core
