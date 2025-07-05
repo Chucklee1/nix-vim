@@ -40,11 +40,11 @@
       core = mkCheck system "core";
       full = mkCheck system "full";
     });
-    overlays = allSystems (system: {
-      default = _: _: {nixvim = mkModule system "core";};
-      core = _: _: {nixvim = mkModule system "core";};
-      full = _: _: {nixvim = mkModule system "full";};
-    });
+    overlays.default = self: prev: {
+      nixvim.default = mkModule self.system "core";
+      nixvim.core = mkModule self.system "core";
+      nixvim.full = mkModule self.system "full";
+    };
     packages = allSystems (system: {
       default = mkModule system "core";
       core = mkModule system "core";
