@@ -8,10 +8,15 @@ with lib; let
   cfg = config.services.nixvim.cmp;
 in {
   options.services.nixvim.cmp.enable = mkEnableOption {
-    default = false;
     description = "enables cmp options";
+    default = false;
   };
   config = mkIf cfg.enable {
+    opts.completeopt = [
+      "menuone"
+      "noselect"
+      "noinsert"
+    ];
     plugins = {
       # breadcrumbs
       lspsaga.enable = true;

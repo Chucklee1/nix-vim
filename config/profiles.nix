@@ -3,14 +3,14 @@
   profile,
   ...
 }:
-with lib;
-  mkIf (profile == "core") {
-    services.nixvim = {
-      cmp.enable = false;
+with lib; {
+  services.nixvim =
+    mkIf (profile == "core") {}
+    // mkIf (profile == "full") {
+      services.nixvim = {
+        cmp.enable = true;
+        latex.enable = true;
+        telescope.nerdIcons = true;
+      };
     };
-  }
-  // mkIf (profile == "full") {
-    services.nixvim = {
-      cmp.enable = true;
-    };
-  }
+}

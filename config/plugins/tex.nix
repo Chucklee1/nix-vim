@@ -1,9 +1,11 @@
 {
   lib,
+  config,
   pkgs,
-  profile,
   ...
-}: let
+}:
+with lib; let
+  cfg = config.services.nixvim.latex;
   latexmkrc =
     #sh
     ''
@@ -21,12 +23,17 @@
       }
     '';
 in {
-  plugins = {
-    vimtex = {
-      enable =
-        if (profile == "full")
-        then true
-        else false;
+  options.services.nixvim.latex.enable =
+    mkEnableOption
+    {
+      description = "enables latex support with vimtex";
+      default = false;
+    };
+  config = mkIf cfg.enable {
+    lsp.servers.texlab.enable = true;
+    plugins.treesitter.settings.highlight.disable = ["latex"];
+    plugins.vimtex = {
+      enable = true;
       texlivePackage = pkgs.texlive.combined.scheme-full;
       zathuraPackage = pkgs.zathura;
       settings = {

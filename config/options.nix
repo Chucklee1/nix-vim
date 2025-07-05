@@ -43,7 +43,6 @@
 
     # spelling
     spelllang = ["en_us"]; # Spell check languages
-    spell = false;
 
     # history
     clipboard = {
@@ -56,13 +55,6 @@
     swapfile = false;
     backup = false;
     undofile = true;
-
-    # completeopt for cmp
-    completeopt = [
-      "menuone"
-      "noselect"
-      "noinsert"
-    ];
   };
   # command aliases
   userCommands = {
