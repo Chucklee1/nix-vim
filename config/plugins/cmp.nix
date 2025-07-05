@@ -1,22 +1,29 @@
 {
-  pkgs,
+  lib,
+  config,
   inputs,
   ...
-}: {
-  plugins = {
-    # breadcrumbs
-    lspsaga = {
-      enable = true;
-      lightbulb = {
+}:
+with lib; let
+  cfg = config.services.nixvim.cmp;
+in {
+  options.services.nixvim.cmp.enable = mkEnableOption {
+    default = false;
+    description = "enables cmp options";
+  };
+  config = mkIf cfg.enable {
+    plugins = {
+      # breadcrumbs
+      lspsaga.enable = true;
+      lspsaga.lightbulb = {
         enable = false;
         virtualText = false;
       };
-    };
 
-    # completion
-    cmp = {
-      enable = true;
-      settings = {
+      # completion
+      cmp.enable = true;
+      cmp.autoEnableSources = true;
+      cmp.settings = {
         mapping = {
           __raw = ''
             cmp.mapping.preset.insert({
@@ -31,33 +38,32 @@
           completion.__raw = ''cmp.config.window.bordered()'';
           documentation.__raw = ''cmp.config.window.bordered()'';
         };
+        sources = [
+          {name = "async-path";}
+          {name = "buffer";}
+          {name = "dictionary";}
+          {name = "emoji";}
+          {name = "luasnip";}
+          {name = "latex-symbols";}
+          {name = "nvim_lsp";}
+          {name = "spell";}
+          {name = "treesitter";}
+          {name = "vimtex";}
+        ];
       };
-      autoEnableSources = true;
-      settings.sources = [
-        {name = "async-path";}
-        {name = "buffer";}
-        {name = "dictionary";}
-        {name = "emoji";}
-        {name = "luasnip";}
-        {name = "latex-symbols";}
-        {name = "nvim_lsp";}
-        {name = "spell";}
-        {name = "treesitter";}
-        {name = "vimtex";}
-      ];
-    };
 
-    # snippets
-    luasnip.enable = true;
-    nvim-snippets.enable = true;
-    friendly-snippets.enable = true;
+      # snippets
+      luasnip.enable = true;
+      nvim-snippets.enable = true;
+      friendly-snippets.enable = true;
+    };
+    # dictionary lookip file
+    extraConfigLua = ''
+      require("cmp_dictionary").setup {
+        dic = {
+          ["*"] = "${inputs.en_us-dictionary}/words.txt"
+        },
+      }
+    '';
   };
-  # dictionary lookip file
-  extraConfigLua = ''
-    require("cmp_dictionary").setup {
-      dic = {
-        ["*"] = "${inputs.en_us-dictionary}/words.txt"
-      },
-    }
-  '';
 }
