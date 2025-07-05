@@ -5,49 +5,50 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixvim.url = "github:nix-community/nixvim";
     customLib.url = "github:Chucklee1/nixos-dotfiles";
-    flake-parts.url = "github:hercules-ci/flake-parts";
     en_us-dictionary.url = "github:dwyl/english-words";
     en_us-dictionary.flake = false;
   };
 
   outputs = {self, ...} @ inputs: let
-    inherit (inputs.customLib) extlib;
     # function definitions are under the repo's root at libs.nix
-  in
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+    extlib = inputs.customLib.extlib;
 
-      perSystem = {
-        pkgs,
-        system,
-        ...
-      }: let
-        # ---- lib & pkgs ----
-        nixvimLib = inputs.nixvim.lib.${system};
-        nixvim' = inputs.nixvim.legacyPackages.${system};
+    # idea from github:Misterio77/nix-starter-configs
+    systems = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+    allSystems = inputs.nixpkgs.lib.genAttrs systems;
 
-        # ---- module definition ----
-        nixvimModule = profile: {
-          # profile choices: core, full
-          inherit system;
-          module.imports = extlib.simpleMerge "${self}/config";
-          extraSpecialArgs = {inherit inputs extlib profile;};
-        };
-      in {
-        formatter = pkgs.alejandra;
-        checks = {
-          default = nixvimLib.check.mkTestDerivationFromNixvimModule (nixvimModule "core");
-          full = nixvimLib.check.mkTestDerivationFromNixvimModule (nixvimModule "full");
-        };
-        packages = {
-          default = nixvim'.makeNixvimWithModule (nixvimModule "core");
-          full = nixvim'.makeNixvimWithModule (nixvimModule "full");
-        };
-      };
+    # module definition
+    nixvimModule = system: profile: {
+      # profile choices: core, full
+      inherit system;
+      module.imports = extlib.simpleMerge "${self}/config";
+      extraSpecialArgs = {inherit inputs extlib profile;};
     };
+
+    # output helpers
+    mkCheck = system: profile: inputs.nixvim.lib.${system}.check.mkTestDerivationFromNixvimModule (nixvimModule system profile);
+    mkModule = system: profile: inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule (nixvimModule system profile);
+  in {
+    # using core and default  with core profile so one can either run core as default or directly state core
+    checks = allSystems (system: {
+      default = mkCheck system "core";
+      core = mkCheck system "core";
+      full = mkCheck system "full";
+    });
+    overlays = allSystems (system: {
+      default = _: _: {nixvim = mkModule system "core";};
+      core = _: _: {nixvim = mkModule system "core";};
+      full = _: _: {nixvim = mkModule system "full";};
+    });
+    packages = allSystems (system: {
+      default = mkModule system "core";
+      core = mkModule system "core";
+      full = mkModule system "full";
+    });
+  };
 }
