@@ -46,14 +46,12 @@ in {
         };
       };
     }
-    // mkIf config.plugins.lazygit.enable {
+    // mkIf (cfg.enable && config.plugins.lazygit.enable) {
       extraConfigLua = "require('telescope').load_extension('lazygit')";
     }
-    // mkIf cfg.nerdIcon {
-      plugins.nerdy = {
-        enable = true;
-        enableTelescope = true;
-      };
+    // mkIf (cfg.enable && cfg.nerdIcons) {
+      plugins.nerdy.enable = true;
+      plugins.nerdy.enableTelescope = true;
       extraConfigLua = "require('telescope').load_extension('nerdy')";
     };
 }
