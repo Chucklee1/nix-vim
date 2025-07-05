@@ -4,12 +4,16 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixvim.url = "github:nix-community/nixvim";
+    customLib.url = "github:Chucklee1/nixos-dotfiles";
     flake-parts.url = "github:hercules-ci/flake-parts";
     en_us-dictionary.url = "github:dwyl/english-words";
     en_us-dictionary.flake = false;
   };
 
-  outputs = {self, ...} @ inputs:
+  outputs = {self, ...} @ inputs: let
+    inherit (inputs.customLib) extlib;
+    # function definitions are under the repo's root at libs.nix
+  in
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [
         "x86_64-linux"
@@ -26,8 +30,6 @@
         # ---- lib & pkgs ----
         nixvimLib = inputs.nixvim.lib.${system};
         nixvim' = inputs.nixvim.legacyPackages.${system};
-        # init copied from my nixos-dotfiles repo
-        extlib = import "${self}/libs.nix" {inherit (inputs) nixpkgs;};
 
         # ---- module definition ----
         nixvimModule = profile: {
