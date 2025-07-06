@@ -47,7 +47,15 @@
           ["q!" "<leader>Q"]
           ["bd" "<leader>c"]
           ["bd!" "<leader>C"]
+
+          # replace tabs with 2 spaces
+          ["%s/\t/  /g" "<leader>tt"]
         ])
+      # easily insert or append in visual mode
+      (mkKeymaps "v" "wrap" [
+        ['''<,'>normal I'' "<leader>i"]
+        ['''<,'>normal A'' "<leader>a"]
+      ])
       # toggles - credit to Khaneliman's khanelivim
       (mkKeymaps "n" "raw" [
         [

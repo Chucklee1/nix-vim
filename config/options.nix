@@ -30,6 +30,7 @@
     pumheight = 0;
 
     # indentation
+    expandtab = true;
     smartindent = true;
     breakindent = true;
 
@@ -40,6 +41,10 @@
     smartcase = true; # Don't ignore case with capitals
     grepprg = "rg --vimgrep";
     grepformat = "%f:%l:%c:%m";
+
+    # highlight the uneeded
+    list = true;
+    listchars.__raw = "{ tab = '» ', trail = '·', nbsp = '␣' }";
 
     # spelling
     spelllang = ["en_us"]; # Spell check languages
@@ -80,13 +85,13 @@
       desc = "4 tabspace, real tabs";
       event = ["FileType"];
       pattern = ["markdown" "latex" "html" "json" "toml" "yaml" "kdl"];
-      command = "setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab";
+      command = "setlocal tabstop=4 shiftwidth=4 softtabstop=4";
     }
     {
       desc = "2 tabspace, tabs are spaces";
       event = ["FileType"];
       pattern = ["nix" "lua" "asm" "c" "cpp"];
-      command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab";
+      command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
     }
   ];
 
