@@ -68,6 +68,8 @@
     WQ.command = "wq";
     W.command = "w";
     Ex.command = "Oil";
+    NI.command = "normal I";
+    NA.command = "normal A";
   };
   performance.byteCompileLua.enable = true;
 
