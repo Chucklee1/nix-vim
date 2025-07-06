@@ -5,10 +5,13 @@
 }:
 with lib; {
   services.nixvim =
-    mkIf (profile == "core") {}
+    mkIf (profile == "core") {
+      telescope.enable = true;
+    }
     // mkIf (profile == "full") {
       cmp.enable = true;
       latex.enable = true;
-      nerdIconLookup = true;
+      telescope.enable = true;
+      telescope.nerdIconLookup = true;
     };
 }
