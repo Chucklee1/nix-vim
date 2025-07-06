@@ -4,20 +4,14 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nixvim.telescope;
+  cfg = config.services.nixvim.nerdIconLookup;
 in {
-  options.services.nixvim.telescope = {
-    enable = mkEnableOption {
-      description = "enables telescope";
-      default = true;
-    };
-    nerdIcons = mkEnableOption {
-      description = "enable support for nerd icon searching via telescope";
-      default = false;
-    };
+  options.services.nixvim.nerdIconLookup = mkEnableOption {
+    description = "enable support for nerd icon searching via telescope";
+    default = false;
   };
   config =
-    mkIf cfg.enable {
+    {
       plugins.telescope = {
         enable = true;
         settings = {
@@ -46,10 +40,7 @@ in {
         };
       };
     }
-    // mkIf (cfg.enable && config.plugins.lazygit.enable) {
-      extraConfigLua = "require('telescope').load_extension('lazygit')";
-    }
-    // mkIf (cfg.enable && cfg.nerdIcons) {
+    // mkIf cfg {
       plugins.nerdy.enable = true;
       plugins.nerdy.enableTelescope = true;
       extraConfigLua = "require('telescope').load_extension('nerdy')";

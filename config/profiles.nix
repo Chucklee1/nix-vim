@@ -9,6 +9,6 @@ with lib; {
     // mkIf (profile == "full") {
       cmp.enable = true;
       latex.enable = true;
-      telescope.nerdIcons = true;
+      nerdIconLookup = true;
     };
 }
