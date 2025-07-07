@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  profile,
-  ...
-}: {
+{pkgs, ...}: {
   # ---- LSP ----
   plugins.lsp.enable = true;
   lsp.servers = {
@@ -11,10 +6,11 @@
     bashls.enable = true;
     clangd.enable = true;
     html.enable = true;
+    jdtls.enable = true;
+    lemminx.enable = true; # xml
     lua_ls.enable = true;
     marksman.enable = true;
-    nixd.enable = true;
-    yamlls.enable = true;
+    nil_ls.enable = true;
   };
 
   # ---- FORMATTING ----
@@ -29,9 +25,11 @@
           settings.extra_args = ["--disable=duplicate_key"];
         };
         formatting = {
-          alejandra.enable = true;
-          prettier.enable = true;
+          alejandra.enable = true; # nix
+          prettier.enable = true; # soyjack
+          prettier.settings.disabled_filetypes = ["html"]; # tidy will cover html
           shfmt.enable = true;
+          tidy.enable = true; # html, xhtml, xml
         };
       };
     };
@@ -52,7 +50,9 @@
     plenary-nvim
   ];
   extraPackages = with pkgs; [
-    stylua
     alejandra
+    lemminx # xml lsp
+    stylua
+    vscode-langservers-extracted # soyjack lsps
   ];
 }
