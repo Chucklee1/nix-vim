@@ -1,6 +1,46 @@
 {
   globals.mapleader = " ";
   globals.maplocalleader = " ";
+  extraConfigLua = ''
+    local key = vim.keymap.set
+    -- General
+    key("n", "<esc>",      ":nohlsearch<CR>", {desc = "Clear search highlights"})
+    key("n", "<leader>e",  ":Yazi<CR>",       {desc = "Open fil editor"})
+    key("n", "<leader>gg", ":LazyGit<CR>",    {desc = "Open LazyGit"})
+
+    -- Telescope binding
+   key("n", "<leader>fb", ":Telescope buffers<CR>",    {desc = ""})
+   key("n", "<leader>ff", ":Telescope find_files<CR>", {desc = ""})
+   key("n", "<leader>fg", ":Telescope live_grep<CR>",  {desc = ""})
+   key("n", "<leader>fn", ":Telescope nerdy<CR>",      {desc = ""})
+
+    -- Buffer
+    key("n",  "<S-l>",      "bn",  {desc = ""})
+    key("n",  "<S-h>",      "bp",  {desc = ""})
+    key("n",  "<leader>c",  "bd",  {desc = ""})
+
+    -- use the force
+    key("n", "<leader>W",  "w!",  {desc = ""})
+    key("n", "<leader>Q",  "q!",  {desc = ""})
+    key("n",  "<leader>c", "bd",  {desc = ""})
+    key("n", "<leader>C",  "bd!", {desc = ""})
+
+    -- tweaks 
+    key("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+    key("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
+    key("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
+    key("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+
+    key("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+    key("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+    key("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+    key("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
+    key("v", "<", "<gv", { desc = "Indent left and reselect" })
+    key("v", ">", ">gv", { desc = "Indent right and reselect" })
+
+    key("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+  '';
   keymaps = let
     mkKeymaps = mode: type: list:
       map (sublist:
@@ -22,34 +62,8 @@
   in
     builtins.concatLists [
       (mkKeymaps "n" "wrap"
-        [
-          # misc ui
-          ["Oil" "<leader>e"]
-          ["LazyGit" "<leader>gg"]
 
-          # clear search results
-          ["noh" "<esc>"]
 
-          # Telescope binding
-          ["Telescope find_files" "<leader>ff"]
-          ["Telescope live_grep" "<leader>fg"]
-          ["Telescope nerdy" "<leader>fn"]
-          ["Telescope buffers" "<leader>fb"]
-
-          # Buffer
-          ["bn" "<S-l>"]
-          ["bp" "<S-h>"]
-          ["bd" "<leader>c"]
-          ["bd!" "<leader>C"]
-
-          # force it
-          ["w!" "<leader>W"]
-          ["q!" "<leader>Q"]
-          ["bd" "<leader>c"]
-          ["bd!" "<leader>C"]
-
-          # replace tabs with 2 spaces
-          ["%s/\t/  /g" "<leader>tt"]
         ])
       # toggles - credit to Khaneliman's khanelivim
       (mkKeymaps "n" "raw" [

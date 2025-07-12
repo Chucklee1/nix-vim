@@ -24,20 +24,13 @@
       };
     };
     # file explorer meets text editor
-    oil = {
-      enable = true;
-      settings = {
-        delete_to_trash = true;
-        view_options.show_hidden = true;
-      };
-    };
     yazi.enable = true;
     noice = {
       enable = true; # fancy cmd window
       settings.presets = {
         bottom_search = true; # use a classic bottom cmdline for search
         command_palette = true; # position the cmdline and popupmenu together
-        long_message_to_split = true; #- long messages will be sent to a split
+        long_message_to_split = true; # - long messages will be sent to a split
       };
     };
     # startup menu
@@ -64,7 +57,7 @@
         change_to_dir = false;
         use_unicode = true;
 
-        lists = [{type = "dir";}];
+        lists = [ { type = "dir"; } ];
         files_number = 30;
 
         skiplist = [
