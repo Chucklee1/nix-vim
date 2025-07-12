@@ -13,15 +13,6 @@
     # function definitions are under the repo's root at libs.nix
     extlib = inputs.customLib.extlib;
 
-    # idea from github:Misterio77/nix-starter-configs
-    systems = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-    allSystems = inputs.nixpkgs.lib.genAttrs systems;
-
     # module definition
     nixvimModule = system: profile: {
       # profile choices: core, full
@@ -35,7 +26,7 @@
     mkModule = system: profile: inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule (nixvimModule system profile);
   in {
     # using core and default  with core profile so one can either run core as default or directly state core
-    checks = allSystems (system: {
+    checks = extlib.allSystems (system: {
       default = mkCheck system "core";
       core = mkCheck system "core";
       full = mkCheck system "full";
@@ -45,7 +36,7 @@
       nixvim.core = mkModule self.system "core";
       nixvim.full = mkModule self.system "full";
     };
-    packages = allSystems (system: {
+    packages = extlib.allSystems (system: {
       default = mkModule system "core";
       core = mkModule system "core";
       full = mkModule system "full";
