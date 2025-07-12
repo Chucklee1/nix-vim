@@ -15,14 +15,14 @@
     key("n", "<leader>fn", ":Telescope nerdy<CR>",      {desc = "Telescope nerd-icon search"})
 
      -- Buffer
-     key("n",  "<S-l>",      "bn",  {desc = "Goto next buffer"})
-     key("n",  "<S-h>",      "bp",  {desc = "Goto previous buffer"})
-     key("n",  "<leader>c",  "bd",  {desc = "Delete current buffer"})
+     key("n",  "<S-l>",      ":bn<CR>",  {desc = "Goto next buffer"})
+     key("n",  "<S-h>",      ":bp<CR>",  {desc = "Goto previous buffer"})
+     key("n",  "<leader>c",  ":bd<CR>",  {desc = "Delete current buffer"})
 
      -- use the force
-     key("n", "<leader>W",  "w!",  {desc = "Force Write"})
-     key("n", "<leader>Q",  "q!",  {desc = "Force quit"})
-     key("n", "<leader>C",  "bd!", {desc = "Force Delete Current Buffer"})
+     key("n", "<leader>W",  ":w!<CR>",  {desc = "Force Write"})
+     key("n", "<leader>Q",  ":q!<CR>",  {desc = "Force quit"})
+     key("n", "<leader>C",  ":bd!<CR>", {desc = "Force Delete Current Buffer"})
 
      -- tweaks
      key("n", "n", "nzzzv", { desc = "Next search result (centered)" })
