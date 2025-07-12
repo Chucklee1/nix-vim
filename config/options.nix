@@ -47,7 +47,7 @@
     listchars.__raw = "{ tab = '» ', trail = '·', nbsp = '␣' }";
 
     # spelling
-    spelllang = ["en_us"]; # Spell check languages
+    spelllang = [ "en_us" ]; # Spell check languages
 
     # history
     clipboard = {
@@ -67,9 +67,7 @@
     Wq.command = "wq";
     WQ.command = "wq";
     W.command = "w";
-    Ex.command = "Oil";
-    NI.command = "normal I";
-    NA.command = "normal A";
+    Ex.command = "Yazi";
   };
   performance.byteCompileLua.enable = true;
 
@@ -79,20 +77,39 @@
   autoCmd = [
     {
       desc = "enable spelling";
-      event = ["FileType"];
-      pattern = ["markdown" "latex" "html"];
+      event = [ "FileType" ];
+      pattern = [
+        "html"
+        "latex"
+        "markdown"
+      ];
       callback.__raw = "function() vim.opt.spell = true end";
     }
     {
       desc = "4 tabspace, real tabs";
-      event = ["FileType"];
-      pattern = ["markdown" "latex" "html" "json" "toml" "yaml" "kdl"];
+      event = [ "FileType" ];
+      pattern = [
+        "html"
+        "json"
+        "kdl"
+        "latex"
+        "markdown"
+        "toml"
+        "yaml"
+        "xml"
+      ];
       command = "setlocal tabstop=4 shiftwidth=4 softtabstop=4";
     }
     {
       desc = "2 tabspace, tabs are spaces";
-      event = ["FileType"];
-      pattern = ["nix" "lua" "asm" "c" "cpp"];
+      event = [ "FileType" ];
+      pattern = [
+        "asm"
+        "c"
+        "cpp"
+        "lua"
+        "nix"
+      ];
       command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
     }
   ];
