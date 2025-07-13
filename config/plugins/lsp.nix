@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # ---- LSP ----
   plugins.lsp.enable = true;
   lsp.servers = {
@@ -10,7 +11,7 @@
     lemminx.enable = true; # xml
     lua_ls.enable = true;
     marksman.enable = true;
-    nil_ls.enable = true;
+    nixd.enable = true;
   };
 
   # ---- FORMATTING ----
@@ -22,12 +23,12 @@
       sources = {
         diagnostics.statix = {
           enable = true;
-          settings.extra_args = ["--disable=duplicate_key"];
+          settings.extra_args = [ "--disable=duplicate_key" ];
         };
         formatting = {
           alejandra.enable = true; # nix
           prettier.enable = true; # soyjack
-          prettier.settings.disabled_filetypes = ["html"]; # tidy will cover html
+          prettier.settings.disabled_filetypes = [ "html" ]; # tidy will cover html
           shfmt.enable = true;
           tidy.enable = true; # html, xhtml, xml
         };
@@ -46,9 +47,7 @@
     render-markdown.enable = true;
   };
 
-  extraPlugins = with pkgs.vimPlugins; [
-    plenary-nvim
-  ];
+  extraPlugins = with pkgs.vimPlugins; [ plenary-nvim ];
   extraPackages = with pkgs; [
     alejandra
     lemminx # xml lsp
