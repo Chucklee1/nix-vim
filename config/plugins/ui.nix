@@ -1,5 +1,6 @@
 {
   plugins = {
+    aerial.enable = true;
     web-devicons.enable = true;
     trouble.enable = true;
     scrollview.enable = true;
@@ -57,7 +58,7 @@
         change_to_dir = false;
         use_unicode = true;
 
-        lists = [ { type = "dir"; } ];
+        lists = [{type = "dir";}];
         files_number = 30;
 
         skiplist = [

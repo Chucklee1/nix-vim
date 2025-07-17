@@ -19,7 +19,7 @@ in {
     ];
     plugins = {
       # breadcrumbs
-      lspsaga.enable = true;
+      lspsaga.enable = false;
       lspsaga.lightbulb = {
         enable = false;
         virtualText = false;
