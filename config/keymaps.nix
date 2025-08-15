@@ -4,9 +4,10 @@
   extraConfigLua = ''
      local key = vim.keymap.set
      -- General
-     key("n", "<esc>",      ":nohlsearch<CR>", {desc = "Clear search highlights"})
-     key("n", "<leader>e",  ":Yazi<CR>",       {desc = "Open fil editor"})
-     key("n", "<leader>gg", ":LazyGit<CR>",    {desc = "Open LazyGit"})
+     key("n", "<esc>",      ":nohlsearch<CR>",  {desc = "Clear search highlights"})
+     key("n", "<leader>e",  ":Yazi<CR>",        {desc = "Open fil editor"})
+     key("n", "<leader>gg", ":LazyGit<CR>",     {desc = "Open LazyGit"})
+     key("n", "<leader>gc", ":CopilotChat<CR>", {desc = "Open CopilotChat"})
 
      -- Telescope binding
     key("n", "<leader>fb", ":Telescope buffers<CR>",    {desc = "Telescope buffer search"})
