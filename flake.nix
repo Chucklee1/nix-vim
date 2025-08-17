@@ -30,19 +30,16 @@
       default = mkCheck system "core";
       core = mkCheck system "core";
       full = mkCheck system "full";
-      darwin = mkCheck system "darwin";
     });
     overlays.default = self: prev: {
       nixvim.default = mkModule self.system "core";
       nixvim.core = mkModule self.system "core";
       nixvim.full = mkModule self.system "full";
-      nixvim.darwin = mkModule self.system "darwin";
     };
     packages = extlib.allSystems (system: {
       default = mkModule system "core";
       core = mkModule system "core";
       full = mkModule system "full";
-      darwin = mkModule system "darwin";
     });
   };
 }
