@@ -47,7 +47,7 @@
     listchars.__raw = "{ tab = '» ', trail = '·', nbsp = '␣' }";
 
     # spelling
-    spelllang = [ "en_us" ]; # Spell check languages
+    spelllang = ["en_us"]; # Spell check languages
 
     # history
     clipboard = {
@@ -67,7 +67,6 @@
     Wq.command = "wq";
     WQ.command = "wq";
     W.command = "w";
-    Ex.command = "Yazi";
   };
   performance.byteCompileLua.enable = true;
 
@@ -77,7 +76,7 @@
   autoCmd = [
     {
       desc = "enable spelling";
-      event = [ "FileType" ];
+      event = ["FileType"];
       pattern = [
         "html"
         "latex"
@@ -87,7 +86,7 @@
     }
     {
       desc = "4 tabspace, real tabs";
-      event = [ "FileType" ];
+      event = ["FileType"];
       pattern = [
         "html"
         "json"
@@ -97,12 +96,13 @@
         "toml"
         "yaml"
         "xml"
+        "sh"
       ];
       command = "setlocal tabstop=4 shiftwidth=4 softtabstop=4";
     }
     {
       desc = "2 tabspace, tabs are spaces";
-      event = [ "FileType" ];
+      event = ["FileType"];
       pattern = [
         "asm"
         "c"
