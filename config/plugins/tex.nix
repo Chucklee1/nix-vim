@@ -23,12 +23,17 @@ with lib; let
       }
     '';
 in {
-  options.services.nixvim.latex.enable =
-    mkEnableOption
-    {
+  options.services.nixvim = {
+    latex.enable =
+    mkEnableOption {
       description = "enables latex support with vimtex";
       default = false;
     };
+    macSupport = mkEnableOption {
+      description = "swaps zathura for skim, works better on mac";
+      default = false;
+    };
+  };
   config = mkIf cfg.enable {
     lsp.servers.texlab.enable = true;
     plugins.treesitter.settings.highlight.disable = ["latex"];
@@ -37,7 +42,7 @@ in {
       texlivePackage = pkgs.texlive.combined.scheme-full;
       zathuraPackage = pkgs.zathura;
       settings = {
-        view_method = "zathura";
+        view_method = if cfg.macSupport then "skim" else "zathura";
         # quiet log
         quickfix_ignore_filters = ["error"];
         quickfix_open_on_warning = 0;
