@@ -23,9 +23,8 @@ with lib; let
       }
     '';
 in {
-  options.services.nixvim = {
-    latex.enable =
-    mkEnableOption {
+  options.services.nixvim.latex = {
+    enable = mkEnableOption {
       description = "enables latex support with vimtex";
       default = false;
     };
@@ -42,7 +41,10 @@ in {
       texlivePackage = pkgs.texlive.combined.scheme-full;
       zathuraPackage = pkgs.zathura;
       settings = {
-        view_method = if cfg.macSupport then "skim" else "zathura";
+        view_method =
+          if cfg.macSupport
+          then "skim"
+          else "zathura";
         # quiet log
         quickfix_ignore_filters = ["error"];
         quickfix_open_on_warning = 0;
